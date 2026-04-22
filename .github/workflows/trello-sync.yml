@@ -18,26 +18,38 @@ jobs:
           PR_ACTION: ${{ github.event.action }}
           PR_MERGED: ${{ github.event.pull_request.merged }}
         run: |
-          # Extract Trello card ID from PR body (e.g. https://trello.com/c/ABC123xyz)
-          CARD_ID=$(echo "$PR_BODY" | grep -oP 'trello.com/c/\K[^/ ]+' | head -n 1)
+          # Extract only alphanumeric ID to avoid trailing slashes or slugs
+          CARD_ID=$(echo "$PR_BODY" | grep -oP 'trello.com/c/\K[a-zA-Z0-9]+' | head -n 1)
+          
+          # Clean all variables from any hidden spaces/newlines
+          CLEAN_KEY=$(echo "$TRELLO_KEY" | tr -d '[:space:]')
+          CLEAN_TOKEN=$(echo "$TRELLO_TOKEN" | tr -d '[:space:]')
+          CLEAN_REVIEW_LIST=$(echo "$LIST_CODE_REVIEW" | tr -d '[:space:]')
+          CLEAN_DONE_LIST=$(echo "$LIST_DONE" | tr -d '[:space:]')
           
           if [ -z "$CARD_ID" ]; then
             echo "No Trello card link found in PR description."
             exit 0
           fi
           
+          if [ -z "$CLEAN_KEY" ] || [ -z "$CLEAN_TOKEN" ]; then
+            echo "Error: TRELLO_KEY or TRELLO_TOKEN is empty. Check GitHub Secrets."
+            exit 1
+          fi
+          
           echo "Found Trello card: $CARD_ID"
           
           TARGET_LIST=""
           if [ "$PR_ACTION" == "opened" ] || [ "$PR_ACTION" == "reopened" ]; then
-            TARGET_LIST=$LIST_CODE_REVIEW
+            TARGET_LIST=$CLEAN_REVIEW_LIST
           elif [ "$PR_ACTION" == "closed" ] && [ "$PR_MERGED" == "true" ]; then
-            TARGET_LIST=$LIST_DONE
+            TARGET_LIST=$CLEAN_DONE_LIST
           fi
           
           if [ -n "$TARGET_LIST" ]; then
             echo "Moving card to list: $TARGET_LIST"
-            curl -s -X PUT "https://api.trello.com/1/cards/$CARD_ID?idList=$TARGET_LIST&key=$TRELLO_KEY&token=$TRELLO_TOKEN"
+            URL="https://api.trello.com/1/cards/${CARD_ID}?idList=${TARGET_LIST}&key=${CLEAN_KEY}&token=${CLEAN_TOKEN}"
+            curl -f -s -X PUT "$URL"
           else
             echo "No action needed for PR state: $PR_ACTION (Merged: $PR_MERGED)"
           fi
