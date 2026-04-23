@@ -251,6 +251,12 @@ namespace LochyIGorzala.Editor
             authorsPanel.SetActive(false);
 
             // ============================
+            // OPTIONS PANEL (DLC joke)
+            // ============================
+            GameObject optionsPanel = BuildOptionsPanel(canvasObj.transform);
+            optionsPanel.SetActive(false);
+
+            // ============================
             // MENU CONTROLLER
             // ============================
             GameObject menuController = new GameObject("MainMenuController");
@@ -260,6 +266,7 @@ namespace LochyIGorzala.Editor
             SerializedObject so = new SerializedObject(mmc);
             so.FindProperty("mainPanel").objectReferenceValue = mainPanel;
             so.FindProperty("authorsPanel").objectReferenceValue = authorsPanel;
+            so.FindProperty("optionsPanel").objectReferenceValue = optionsPanel;
             so.FindProperty("startButton").objectReferenceValue = startBtn.GetComponent<Button>();
             so.FindProperty("loadButton").objectReferenceValue = loadBtn.GetComponent<Button>();
             so.FindProperty("optionsButton").objectReferenceValue = optionsBtn.GetComponent<Button>();
@@ -267,6 +274,8 @@ namespace LochyIGorzala.Editor
             so.FindProperty("quitButton").objectReferenceValue = quitBtn.GetComponent<Button>();
             so.FindProperty("authorsBackButton").objectReferenceValue =
                 authorsPanel.transform.Find("BackButton").GetComponent<Button>();
+            so.FindProperty("optionsBackButton").objectReferenceValue =
+                optionsPanel.transform.Find("BackButton").GetComponent<Button>();
             so.FindProperty("saveSlotPanel").objectReferenceValue =
                 saveSlotPanelObj.GetComponent<UI.SaveSlotPanel>();
             so.ApplyModifiedPropertiesWithoutUndo();
@@ -468,6 +477,75 @@ namespace LochyIGorzala.Editor
             backTmp.fontStyle = TMPro.FontStyles.Bold;
 
             return authorsPanel;
+        }
+
+        // =====================================================
+        // OPTIONS PANEL (black screen with DLC joke)
+        // =====================================================
+
+        private static GameObject BuildOptionsPanel(Transform canvasTransform)
+        {
+            GameObject optionsPanel = new GameObject("OptionsPanel");
+            optionsPanel.transform.SetParent(canvasTransform, false);
+            RectTransform panelRect = optionsPanel.AddComponent<RectTransform>();
+            panelRect.anchorMin = Vector2.zero;
+            panelRect.anchorMax = Vector2.one;
+            panelRect.sizeDelta = Vector2.zero;
+
+            // --- Solid black background ---
+            Image panelBg = optionsPanel.AddComponent<Image>();
+            panelBg.color = new Color(0f, 0f, 0f, 1f);
+
+            // --- DLC message centered ---
+            GameObject msgObj = new GameObject("DlcMessage");
+            msgObj.transform.SetParent(optionsPanel.transform, false);
+            RectTransform msgRect = msgObj.AddComponent<RectTransform>();
+            msgRect.anchorMin = new Vector2(0.1f, 0.35f);
+            msgRect.anchorMax = new Vector2(0.9f, 0.65f);
+            msgRect.offsetMin = Vector2.zero;
+            msgRect.offsetMax = Vector2.zero;
+
+            TMPro.TextMeshProUGUI msgTmp = msgObj.AddComponent<TMPro.TextMeshProUGUI>();
+            msgTmp.text = "Opcje pojawi\u0105 si\u0119 w pierwszym p\u0142atnym DLC :)";
+            msgTmp.fontSize = 38;
+            msgTmp.color = new Color(0.9f, 0.7f, 0.3f, 1f); // Gold
+            msgTmp.alignment = TMPro.TextAlignmentOptions.Center;
+            msgTmp.fontStyle = TMPro.FontStyles.Bold;
+
+            // --- Back Button ---
+            GameObject backBtn = new GameObject("BackButton");
+            backBtn.transform.SetParent(optionsPanel.transform, false);
+            RectTransform backRect = backBtn.AddComponent<RectTransform>();
+            backRect.anchorMin = new Vector2(0.4f, 0.12f);
+            backRect.anchorMax = new Vector2(0.6f, 0.18f);
+            backRect.offsetMin = Vector2.zero;
+            backRect.offsetMax = Vector2.zero;
+
+            Image backBg = backBtn.AddComponent<Image>();
+            backBg.color = new Color(0.35f, 0.22f, 0.1f, 1f);
+
+            Button backButton = backBtn.AddComponent<Button>();
+            ColorBlock backColors = backButton.colors;
+            backColors.normalColor = new Color(0.35f, 0.22f, 0.1f, 1f);
+            backColors.highlightedColor = new Color(0.5f, 0.32f, 0.15f, 1f);
+            backColors.pressedColor = new Color(0.25f, 0.15f, 0.08f, 1f);
+            backButton.colors = backColors;
+
+            GameObject backTextObj = new GameObject("Text");
+            backTextObj.transform.SetParent(backBtn.transform, false);
+            RectTransform backTextRect = backTextObj.AddComponent<RectTransform>();
+            backTextRect.anchorMin = Vector2.zero;
+            backTextRect.anchorMax = Vector2.one;
+            backTextRect.sizeDelta = Vector2.zero;
+
+            TMPro.TextMeshProUGUI backTmp = backTextObj.AddComponent<TMPro.TextMeshProUGUI>();
+            backTmp.text = "POWR\u00d3T";
+            backTmp.fontSize = 26;
+            backTmp.color = new Color(0.9f, 0.75f, 0.4f, 1f);
+            backTmp.alignment = TMPro.TextAlignmentOptions.Center;
+            backTmp.fontStyle = TMPro.FontStyles.Bold;
+
+            return optionsPanel;
         }
 
         // =====================================================
@@ -903,7 +981,7 @@ namespace LochyIGorzala.Editor
             prt.offsetMin = Vector2.zero;
             prt.offsetMax = Vector2.zero;
             Image bg = panel.AddComponent<Image>();
-            bg.color = new Color(0.08f, 0.06f, 0.04f, 0.92f);
+            bg.color = new Color(0.04f, 0.03f, 0.02f, 0.97f);
             panel.AddComponent<CanvasGroup>();
 
             // Message text
