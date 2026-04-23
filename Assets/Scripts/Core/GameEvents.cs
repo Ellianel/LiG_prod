@@ -75,6 +75,7 @@ namespace LochyIGorzala.Core
 
         // UI events
         public static event Action<string> OnNotification; // message
+        public static event Action<string, float> OnNotificationTimed; // message + duration
 
         // --- Invocation methods (only called from game logic) ---
 
@@ -116,6 +117,7 @@ namespace LochyIGorzala.Core
         public static void RaiseAchievementsChanged() => OnAchievementsChanged?.Invoke();
 
         public static void RaiseNotification(string message) => OnNotification?.Invoke(message);
+        public static void RaiseNotification(string message, float duration) => OnNotificationTimed?.Invoke(message, duration);
 
         /// <summary>
         /// Clears all event subscribers. Call when returning to main menu
@@ -152,6 +154,7 @@ namespace LochyIGorzala.Core
             OnAchievementUnlocked = null;
             OnAchievementsChanged = null;
             OnNotification = null;
+            OnNotificationTimed = null;
         }
     }
 }
