@@ -1,0 +1,15 @@
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\xunit.runner.visualstudio.testadapter.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\xunit.abstractions.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\xunit.runner.reporters.net452.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\xunit.runner.utility.net452.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\LochyIGorzala.Tests.deps.json
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\LochyIGorzala.Tests.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\bin\Debug\netstandard2.1\LochyIGorzala.Tests.pdb
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.csproj.AssemblyReference.cache
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.GeneratedMSBuildEditorConfig.editorconfig
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.AssemblyInfoInputs.cache
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.AssemblyInfo.cs
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.csproj.CoreCompileInputs.cache
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.sourcelink.json
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.dll
+D:\LiG\LiG_prod\LochyIGorzala.Tests\obj\Debug\netstandard2.1\LochyIGorzala.Tests.pdb
