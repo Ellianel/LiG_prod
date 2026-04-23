@@ -13,6 +13,7 @@ namespace LochyIGorzala.UI
         [Header("Panels")]
         [SerializeField] private GameObject mainPanel;
         [SerializeField] private GameObject authorsPanel;
+        [SerializeField] private GameObject optionsPanel;
 
         [Header("Buttons")]
         [SerializeField] private Button startButton;
@@ -21,12 +22,10 @@ namespace LochyIGorzala.UI
         [SerializeField] private Button authorsButton;
         [SerializeField] private Button quitButton;
         [SerializeField] private Button authorsBackButton;
+        [SerializeField] private Button optionsBackButton;
 
         [Header("Save System")]
         [SerializeField] private SaveSlotPanel saveSlotPanel;
-
-        [Header("Settings")]
-        [SerializeField] private SettingsPanel settingsPanel;
 
         private void Start()
         {
@@ -54,6 +53,9 @@ namespace LochyIGorzala.UI
 
             if (authorsBackButton != null)
                 authorsBackButton.onClick.AddListener(OnAuthorsBackClicked);
+
+            if (optionsBackButton != null)
+                optionsBackButton.onClick.AddListener(OnOptionsBackClicked);
         }
 
         private void UpdateLoadButtonState()
@@ -93,11 +95,11 @@ namespace LochyIGorzala.UI
 
         private void OnOptionsClicked()
         {
-            Debug.Log("Menu: Ustawienia");
-            if (settingsPanel != null)
+            Debug.Log("Menu: Opcje (DLC)");
+            if (optionsPanel != null)
             {
                 if (mainPanel != null) mainPanel.SetActive(false);
-                settingsPanel.Show(restore: mainPanel);
+                optionsPanel.SetActive(true);
             }
         }
 
@@ -121,12 +123,19 @@ namespace LochyIGorzala.UI
             ShowMainPanel();
         }
 
+        private void OnOptionsBackClicked()
+        {
+            if (optionsPanel != null) optionsPanel.SetActive(false);
+            ShowMainPanel();
+        }
+
         // --- Panel Management ---
 
         private void ShowMainPanel()
         {
             if (mainPanel != null) mainPanel.SetActive(true);
             if (authorsPanel != null) authorsPanel.SetActive(false);
+            if (optionsPanel != null) optionsPanel.SetActive(false);
         }
 
         private void ShowAuthorsPanel()

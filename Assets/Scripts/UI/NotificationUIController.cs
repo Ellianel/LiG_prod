@@ -28,11 +28,13 @@ namespace LochyIGorzala.UI
             if (panel != null) panel.SetActive(false);
 
             GameEvents.OnNotification += ShowNotification;
+            GameEvents.OnNotificationTimed += ShowNotification;
         }
 
         private void OnDestroy()
         {
             GameEvents.OnNotification -= ShowNotification;
+            GameEvents.OnNotificationTimed -= ShowNotification;
         }
 
         private void Start()

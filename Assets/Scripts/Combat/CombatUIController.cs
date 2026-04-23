@@ -110,7 +110,7 @@ namespace LochyIGorzala.Combat
             {
                 var lbl = heavyAttackButton.GetComponentInChildren<TMPro.TextMeshProUGUI>();
                 if (lbl != null)
-                    lbl.text = combatEngine.AvailableActions[1].ActionName;
+                    lbl.text = combatEngine.AvailableActions[1].ActionName.ToUpper();
             }
 
             // Wire InventoryUIController (found anywhere in the scene)
